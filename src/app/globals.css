@@ -3,6 +3,16 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --muted: #6b7280; /* gray-500 */
+  --muted-fore: #374151; /* gray-700 */
+  --card-bg: #ffffff;
+  --card-border: #e5e7eb; /* gray-200 */
+  --ring: #3b82f6; /* blue-500 */
+  --focus: #2563eb; /* blue-600 */
+  --success: #16a34a; /* green-600 */
+  --danger: #dc2626; /* red-600 */
+  --surface: #f9fafb; /* gray-50 */
+  --surface-hover: #f3f4f6; /* gray-100 */
 }
 
 @theme inline {
@@ -14,13 +24,188 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0b0f1a;
+    --foreground: #e5e7eb;
+    --muted: #9ca3af;
+    --muted-fore: #d1d5db;
+    --card-bg: #0f172a; /* slate-900 */
+    --card-border: #1f2937; /* gray-800 */
+    --ring: #60a5fa; /* blue-400 */
+    --focus: #3b82f6; /* blue-500 */
+    --success: #22c55e;
+    --danger: #ef4444;
+    --surface: #0b1220; /* slightly lighter than bg */
+    --surface-hover: #111827; /* gray-900 */
   }
+}
+
+/* Explicit theme overrides via data-theme attribute */
+[data-theme="light"] {
+  --background: #ffffff;
+  --foreground: #171717;
+  --muted: #6b7280;
+  --muted-fore: #374151;
+  --card-bg: #ffffff;
+  --card-border: #e5e7eb;
+  --ring: #3b82f6;
+  --focus: #2563eb;
+  --success: #16a34a;
+  --danger: #dc2626;
+  --surface: #f9fafb;
+  --surface-hover: #f3f4f6;
+}
+
+[data-theme="dark"] {
+  --background: #0b0f1a;
+  --foreground: #e5e7eb;
+  --muted: #9ca3af;
+  --muted-fore: #d1d5db;
+  --card-bg: #0f172a;
+  --card-border: #1f2937;
+  --ring: #60a5fa;
+  --focus: #3b82f6;
+  --success: #22c55e;
+  --danger: #ef4444;
+  --surface: #0b1220;
+  --surface-hover: #111827;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
+
+/* Design system utility classes */
+.ui-card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 0.75rem; /* rounded-xl */
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.04);
+}
+
+.ui-section-title {
+  font-size: 1.25rem; /* text-xl */
+  line-height: 1.75rem;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.ui-input {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--card-border);
+  background-color: var(--card-bg);
+  color: var(--foreground);
+  border-radius: 0.5rem; /* rounded-lg */
+  padding: 0.5rem 0.75rem; /* py-2 px-3 */
+  font-size: 0.875rem; /* text-sm */
+  line-height: 1.25rem;
+  transition: box-shadow 150ms ease, border-color 150ms ease;
+}
+
+.ui-input::placeholder {
+  color: var(--muted);
+}
+
+.ui-input:focus {
+  outline: none;
+  border-color: var(--ring);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 30%, transparent);
+}
+
+.ui-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  transition: background-color 150ms ease, color 150ms ease, box-shadow 150ms ease, opacity 150ms ease;
+}
+
+.ui-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.ui-btn-primary {
+  background-color: var(--focus);
+  color: #fff;
+}
+
+.ui-btn-primary:hover {
+  background-color: #1d4ed8; /* blue-700 */
+}
+
+.ui-btn-secondary {
+  background-color: color-mix(in oklab, var(--foreground) 8%, transparent);
+  color: var(--foreground);
+}
+
+.ui-btn-secondary:hover {
+  background-color: color-mix(in oklab, var(--foreground) 14%, transparent);
+}
+
+/* Improve label contrast */
+label {
+  color: var(--muted-fore);
+}
+
+/* Headings refinement */
+h1, h2, h3 {
+  letter-spacing: -0.01em;
+}
+
+/* Theme normalization for common Tailwind utilities used across app */
+.bg-white { background-color: var(--card-bg) !important; }
+.bg-gray-50 { background-color: var(--surface) !important; }
+.hover\:bg-gray-50:hover { background-color: var(--surface-hover) !important; }
+
+.text-gray-900 { color: var(--foreground) !important; }
+.text-gray-700 { color: var(--muted-fore) !important; }
+.text-gray-500 { color: var(--muted) !important; }
+
+.border-gray-200 { border-color: var(--card-border) !important; }
+.border-gray-300 { border-color: var(--card-border) !important; }
+
+.shadow { box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.04) !important; }
+.shadow-sm { box-shadow: 0 1px 1px 0 rgb(0 0 0 / 0.03) !important; }
+
+/* Forms base styles to ensure consistent theming */
+input, select, textarea {
+  background-color: var(--card-bg);
+  color: var(--foreground);
+  border-color: var(--card-border);
+}
+
+input::placeholder, textarea::placeholder { color: var(--muted); }
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--ring);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 30%, transparent);
+}
+
+/* Buttons fallback (for places not yet using ui-btn) */
+.bg-blue-600 { background-color: var(--focus) !important; color: #fff !important; }
+.hover\:bg-blue-700:hover { background-color: #1d4ed8 !important; }
+.bg-green-600 { background-color: var(--success) !important; color: #fff !important; }
+.hover\:bg-green-700:hover { filter: brightness(0.95); }
+.bg-gray-100 { background-color: color-mix(in oklab, var(--foreground) 8%, transparent) !important; color: var(--foreground) !important; }
+.hover\:bg-gray-200:hover { background-color: color-mix(in oklab, var(--foreground) 14%, transparent) !important; }
+
+/* Tables */
+table { width: 100%; border-collapse: collapse; }
+thead th {
+  background-color: var(--surface);
+  color: var(--muted-fore);
+  text-align: left;
+  font-weight: 600;
+}
+th, td { border-bottom: 1px solid var(--card-border); padding: 0.75rem; }
+tbody tr:hover { background-color: var(--surface-hover); }
