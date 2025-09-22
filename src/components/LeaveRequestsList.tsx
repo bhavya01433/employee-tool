@@ -155,7 +155,7 @@ export default function LeaveRequestsList({
         alert("Error approving request: " + error.message);
       } else {
         console.log("Request approved successfully");
-        fetchLeaveRequests(); // Refresh the list
+        fetchLeaveRequests();
       }
     } catch (error) {
       console.error("Error approving request:", error);
@@ -222,7 +222,10 @@ export default function LeaveRequestsList({
   if (loading) {
     return (
       <div className="text-center py-8">
-        <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2" style={{ borderColor: 'var(--ring)' }}></div>
+        <div
+          className="inline-block animate-spin rounded-full h-8 w-8 border-b-2"
+          style={{ borderColor: "var(--ring)" }}
+        ></div>
         <p className="mt-2 text-[var(--muted)]">Loading leave requests...</p>
       </div>
     );
@@ -230,14 +233,32 @@ export default function LeaveRequestsList({
 
   if (error) {
     return (
-      <div className="rounded-lg p-6" style={{ backgroundColor: 'color-mix(in oklab, var(--danger) 10%, transparent)', border: '1px solid color-mix(in oklab, var(--danger) 30%, transparent)' }}>
+      <div
+        className="rounded-lg p-6"
+        style={{
+          backgroundColor:
+            "color-mix(in oklab, var(--danger) 10%, transparent)",
+          border:
+            "1px solid color-mix(in oklab, var(--danger) 30%, transparent)",
+        }}
+      >
         <div className="flex items-center">
-          <span className="text-xl mr-2" style={{ color: 'var(--danger)' }}>⚠️</span>
+          <span className="text-xl mr-2" style={{ color: "var(--danger)" }}>
+            ⚠️
+          </span>
           <div>
-            <h3 className="font-medium" style={{ color: 'var(--danger)' }}>
+            <h3 className="font-medium" style={{ color: "var(--danger)" }}>
               Error Loading Leave Requests
             </h3>
-            <p className="text-sm mt-1" style={{ color: 'color-mix(in oklab, var(--danger) 80%, var(--foreground))' }}>{error}</p>
+            <p
+              className="text-sm mt-1"
+              style={{
+                color:
+                  "color-mix(in oklab, var(--danger) 80%, var(--foreground))",
+              }}
+            >
+              {error}
+            </p>
             <button
               onClick={fetchLeaveRequests}
               className="mt-2 text-sm ui-btn ui-btn-secondary"
@@ -254,9 +275,7 @@ export default function LeaveRequestsList({
     return (
       <div className="text-center py-12 text-gray-500">
         <span className="text-6xl mb-4 block">📝</span>
-        <h3 className="text-lg font-medium mb-2">
-          No leave requests found
-        </h3>
+        <h3 className="text-lg font-medium mb-2">No leave requests found</h3>
         <p className="text-gray-500">
           Leave requests will appear here once employees submit them.
         </p>
@@ -325,18 +344,21 @@ export default function LeaveRequestsList({
                   {request.total_days}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full"
+                  <span
+                    className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full"
                     style={{
-                      backgroundColor: request.status === 'approved'
-                        ? 'color-mix(in oklab, var(--success) 20%, transparent)'
-                        : request.status === 'rejected'
-                        ? 'color-mix(in oklab, var(--danger) 20%, transparent)'
-                        : 'color-mix(in oklab, var(--ring) 20%, transparent)',
-                      color: request.status === 'approved'
-                        ? 'var(--success)'
-                        : request.status === 'rejected'
-                        ? 'var(--danger)'
-                        : 'var(--ring)'
+                      backgroundColor:
+                        request.status === "approved"
+                          ? "color-mix(in oklab, var(--success) 20%, transparent)"
+                          : request.status === "rejected"
+                          ? "color-mix(in oklab, var(--danger) 20%, transparent)"
+                          : "color-mix(in oklab, var(--ring) 20%, transparent)",
+                      color:
+                        request.status === "approved"
+                          ? "var(--success)"
+                          : request.status === "rejected"
+                          ? "var(--danger)"
+                          : "var(--ring)",
                     }}
                   >
                     {request.status.toUpperCase()}
@@ -346,7 +368,11 @@ export default function LeaveRequestsList({
                   <div title={request.reason}>{request.reason}</div>
                   {request.status === "rejected" &&
                     request.rejection_reason && (
-                      <div className="text-xs mt-1" title={request.rejection_reason} style={{ color: 'var(--danger)' }}>
+                      <div
+                        className="text-xs mt-1"
+                        title={request.rejection_reason}
+                        style={{ color: "var(--danger)" }}
+                      >
                         Rejected: {request.rejection_reason}
                       </div>
                     )}
@@ -359,7 +385,7 @@ export default function LeaveRequestsList({
                           onClick={() => handleApprove(request.id)}
                           disabled={actionLoading === request.id}
                           className="ui-btn ui-btn-secondary text-xs disabled:opacity-50 disabled:cursor-not-allowed"
-                          style={{ color: 'var(--success)' }}
+                          style={{ color: "var(--success)" }}
                         >
                           {actionLoading === request.id ? "..." : "Approve"}
                         </button>
@@ -372,7 +398,7 @@ export default function LeaveRequestsList({
                           }}
                           disabled={actionLoading === request.id}
                           className="ui-btn ui-btn-secondary text-xs disabled:opacity-50 disabled:cursor-not-allowed"
-                          style={{ color: 'var(--danger)' }}
+                          style={{ color: "var(--danger)" }}
                         >
                           {actionLoading === request.id ? "..." : "Reject"}
                         </button>
